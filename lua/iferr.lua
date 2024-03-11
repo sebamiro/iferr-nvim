@@ -1,7 +1,9 @@
 local api = vim.api
 
 local function get_function_parent(node)
-	if node:type() == "func_literal" or node:type() == "function_declaration" then
+	if node:type():match("func_literal")
+		or node:type():match("function_declaration")
+		or node:type():match("method_declaration") then
 		return node
 	end
 	return get_function_parent(node:parent())
