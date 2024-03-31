@@ -1,7 +1,3 @@
-local api = vim.api
-
-require("luasnip.session.snippet_collection").clear_snippets("go")
-
 local ls = require("luasnip")
 
 local fmta = require("luasnip.extras.fmt").fmta
@@ -110,7 +106,7 @@ local handlers = {
 local function get_result_value(info)
 	local func_node = get_function_parent(vim.treesitter.get_node())
 	if not func_node then
-		vim.notify("No in a function")
+		vim.notify("Not in a function")
 		return t("Error")
 	end
 	local result = func_node:field("result")[1]
@@ -119,6 +115,7 @@ local function get_result_value(info)
 			return handlers[result:type()](result, info)
 		end
 	end
+	return t("")
 end
 
 local function iferr(args)
